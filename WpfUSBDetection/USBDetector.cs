@@ -11,7 +11,7 @@ namespace WpfUSBDetection
     /// To get DevBroadcastDeviceinterface
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    public struct DevBroadcastDeviceinterface
+    public struct USBBroadcastinterface
     {
         /// <summary>
         /// The size
@@ -21,7 +21,7 @@ namespace WpfUSBDetection
         /// <summary>
         /// The device type
         /// </summary>
-        internal int DeviceType;
+        internal int USBType;
 
         /// <summary>
         /// The reserved
@@ -42,7 +42,7 @@ namespace WpfUSBDetection
     /// <summary>
     /// To get DeviceDiscoveryManager
     /// </summary>
-    public class DeviceDiscoveryManager
+    public class USBDetector
     {
         /// <summary>
         /// The new usb device connected
@@ -80,9 +80,9 @@ namespace WpfUSBDetection
         /// <param name="windowHandle">Handle to the window receiving notifications.</param>
         public static void RegisterUsbDeviceNotification(IntPtr windowHandle)
         {
-            DevBroadcastDeviceinterface dbi = new DevBroadcastDeviceinterface
+            USBBroadcastinterface dbi = new USBBroadcastinterface
             {
-                DeviceType = DbtDevtypDeviceinterface,
+                USBType = DbtDevtypDeviceinterface,
                 Reserved = 0,
                 ClassGuid = GuidDevinterfaceUSBDevice,
                 Name = 0

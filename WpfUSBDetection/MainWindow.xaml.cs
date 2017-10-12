@@ -25,26 +25,7 @@ namespace WpfUSBDetection
         public MainWindow()
         {
             InitializeComponent();       
-        }
-
-        private IntPtr UsbDeviceNotificationHandler(IntPtr hwnd, int msg, IntPtr wparam, IntPtr lparam, ref bool handled)
-        {
-            if (msg == DeviceDiscoveryManager.UsbDevicechange)
-            {
-                switch ((int)wparam)
-                {
-                    case DeviceDiscoveryManager.UsbDeviceRemoved:
-                        MessageBox.Show("USB Removed");
-                        break;
-                    case DeviceDiscoveryManager.NewUsbDeviceConnected:                       
-                        MessageBox.Show("New USB Detected");
-                        break;
-                }
-            }
-
-            handled = false;
-            return IntPtr.Zero;
-        }
+        }       
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -52,9 +33,29 @@ namespace WpfUSBDetection
             if (hwndSource != null)
             {
                 IntPtr windowHandle = hwndSource.Handle;
-                hwndSource.AddHook(UsbDeviceNotificationHandler);
-                DeviceDiscoveryManager.RegisterUsbDeviceNotification(windowHandle);
+                hwndSource.AddHook(UsbNotificationHandler);
+                USBDetector.RegisterUsbDeviceNotification(windowHandle);
             }
+            USBButton.IsEnabled = false;
+        }
+
+        private IntPtr UsbNotificationHandler(IntPtr hwnd, int msg, IntPtr wparam, IntPtr lparam, ref bool handled)
+        {
+            if (msg == USBDetector.UsbDevicechange)
+            {
+                switch ((int)wparam)
+                {
+                    case USBDetector.UsbDeviceRemoved:
+                        MessageBox.Show("USB Removed");
+                        break;
+                    case USBDetector.NewUsbDeviceConnected:
+                        MessageBox.Show("New USB Detected");
+                        break;
+                }
+            }
+
+            handled = false;
+            return IntPtr.Zero;
         }
     }
 }
