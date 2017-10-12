@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace WpfUSBDetection
 {
     /// <summary>
-    /// To get DevBroadcastDeviceinterface
+    /// To get USBBroadcastinterface
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct USBBroadcastinterface
